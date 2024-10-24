@@ -11,7 +11,7 @@ import java.util.Scanner;
 // To avoid file reading/writing connections to the server, run in /tmp 
 // of your lab machine.
 
-public class Group0 {
+public class Group4 {
 
 	public static void main(String[] args) throws InterruptedException, FileNotFoundException {
 
