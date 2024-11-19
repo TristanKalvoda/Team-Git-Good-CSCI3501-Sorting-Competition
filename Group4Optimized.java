@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Scanner;
 
-public class Group4 {
+public class Group4Optimized {
 
 	public static void main(String[] args) throws InterruptedException, FileNotFoundException {
 
@@ -56,12 +56,20 @@ public class Group4 {
 		return input.toArray(new int[0][]);
 	}
 
-	// Threshold for switching to insertion sort
-	private static final int INSERTION_SORT_THRESHOLD = 10;
+	private static final int INSERTION_SORT_THRESHOLD = 5;
 
 	private static void sort(int[][] toSort) {
 		mergeSort(toSort, 0, toSort.length - 1);
 	}
+
+	// private static void mergeSort(int[][] arr, int left, int right) {
+	// 	if (left < right) {
+	// 		int mid = (left + right) / 2;
+	// 		mergeSort(arr, left, mid);
+	// 		mergeSort(arr, mid + 1, right);
+	// 		merge(arr, left, mid, right);
+	// 	}
+	// }
 
 	private static void mergeSort(int[][] arr, int left, int right) {
 		if (arr.length <= INSERTION_SORT_THRESHOLD) {
@@ -75,18 +83,6 @@ public class Group4 {
 				mergeSort(arr, mid + 1, right);
 				merge(arr, left, mid, right);
 			}
-		}
-	}
-
-	private static void insertionSort(int [][] arr, int left, int right){
-		for (int i = left +1; i <= right; i++) {
-			int[] key = arr[i];
-			int j = i - 1;
-			while (j >= left && new SortingCompetitionComparator().compare(arr[j], key) > 0) {
-				arr[j + 1] = arr[j];
-				j = j - 1;
-			}
-			arr[j + 1] = key;
 		}
 	}
 
@@ -114,17 +110,36 @@ public class Group4 {
 			}
 			k++;
 		}
-		
-		while (i < n1) {
-			arr[k] = L[i];
-			i++;
-			k++;
+
+		if (i < n1) {
+			System.arraycopy(L, i, arr, k, n1 - i);
 		}
 
-		while (j < n2) {
-			arr[k] = R[j];
-			j++;
-			k++;
+		if(j < n2) {
+			System.arraycopy(R, j, arr, k, n2 - j);
+		}
+		// while (i < n1) {
+		// 	arr[k] = L[i];
+		// 	i++;
+		// 	k++;
+		// }
+
+		// while (j < n2) {
+		// 	arr[k] = R[j];
+		// 	j++;
+		// 	k++;
+		// }
+	}
+
+	private static void insertionSort(int [][] arr, int left, int right){
+		for (int i = left +1; i <= right; i++) {
+			int[] key = arr[i];
+			int j = i - 1;
+			while (j >= left && new SortingCompetitionComparator().compare(arr[j], key) > 0) {
+				arr[j + 1] = arr[j];
+				j = j - 1;
+			}
+			arr[j + 1] = key;
 		}
 	}
 
